@@ -1,0 +1,32 @@
+# Default values for api-chart
+replicaCount: 6
+
+image:
+  repository: myapp
+  tag: "v1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 5001
+  targetPort: 5001
+  nodePort: 30007
+
+app:
+  name: api
+  label: api
+
+storage:
+  pv:
+    name: api-pv
+    capacity: 10Gi
+    accessModes: ReadWriteOnce
+    hostPath: /data/api
+  pvc:
+    name: api-pvc
+    storageClassName: ""
+    accessModes: ReadWriteOnce
+    resources:
+      requests:
+        storage: 10Gi
+    mountPath: /app/data
